@@ -11,12 +11,16 @@ span{
 }
 .nav-links{
   color: #0a6e38;
-  transition: .2s;
-  font-weight: 600;
+  transition: .2s; 
+  text-align: center;
 }
 .nav-links:hover{
   color: #c4b581;
   transition: .4s;
+}
+.login-btn{
+  border: none;
+  background-color: transparent;
 }
 .home-page{
   background-image: url("./Images/SacState.jpg") ;
@@ -25,14 +29,12 @@ span{
   background-position: center;
   width: fill;
   height: 70vh;
-  
 }
 
 .home-page-input{
   padding-top: 25vh;
   z-index: 1;
   position: relative;
-  
 }
 .home-page-logo{
   color: white;
@@ -47,4 +49,24 @@ span{
 }
 .home-page-search:focus{
   outline: none;
+}
+.login-title{
+  text-align: center;
+}
+.modal-content{
+  justify-content: center;
+  text-align: center;
+}
+.login-form{
+  margin-top: 1vh;
+}
+.signin-btn{
+ padding: .7rem;
+ border-radius: 25px;
+ margin-top: 20px;
+ width: 100px;
+
+}
+.signup-text{
+  margin-top: 2vh;
 }
