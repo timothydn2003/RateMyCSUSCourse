@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
@@ -12,5 +11,5 @@ const firebaseConfig = {
   measurementId: "G-2R9H6BNHMZ"
 };
 
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
