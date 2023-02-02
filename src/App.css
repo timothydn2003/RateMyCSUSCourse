@@ -19,11 +19,20 @@ span{
   transition: .4s;
 }
 .home-page{
-  background-color: #0a6e38;
-  height: 60vh;
+  background-image: url("./Images/SacState.jpg") ;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: fill;
+  height: 70vh;
+  
 }
+
 .home-page-input{
-  padding-top: 20vh;
+  padding-top: 25vh;
+  z-index: 1;
+  position: relative;
+  
 }
 .home-page-logo{
   color: white;
