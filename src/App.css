@@ -13,14 +13,40 @@ span{
   color: #0a6e38;
   transition: .2s; 
   text-align: center;
+  margin-top: 10px;
 }
+
 .nav-links:hover{
   color: #c4b581;
   transition: .4s;
 }
+.nav-links2{
+  margin-top: 10px;
+  transition: .2s;
+}
+.nav-signin{
+  display: flex;
+}
 .login-btn{
   border: none;
   background-color: transparent;
+}
+.signup-btn{
+  background-color: #c4b581;
+  color: rgb(0, 87, 61);
+  border-radius: 30px;
+  border: none;
+  transition: .2s;
+}
+.signup-btn:hover{
+  background-color: #B5A778;
+  transition: .4s;
+}
+.signup-modal-btn{
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  font-weight: 700;
 }
 .home-page{
   background-image: url("./Images/SacState.jpg") ;
@@ -69,4 +95,36 @@ span{
 }
 .signup-text{
   margin-top: 2vh;
+}
+@media only screen and (max-width: 991px){
+  .nav-signin{
+    display: block;
+  }
+  .signup-btn{
+    color: rgb(0, 87, 61);
+    border-radius: 30px;
+    border: none;
+    background-color: transparent;
+  }
+  .signup-btn:hover{
+    color: rgb(0, 87, 61);
+    border-radius: 30px;
+    border: none;
+    background-color: transparent;
+  }
+  .nav-links{
+    color: #0a6e38;
+    transition: .2s; 
+    text-align: center;
+    margin-top: 0px;
+  }
+  .nav-links2{
+    margin-top: 0px;
+    color: #0a6e38;
+    transition: .2s;
+  }
+  .nav-links2:hover{
+    color: #c4b581;
+    transition: .4s;
+  }
 }
