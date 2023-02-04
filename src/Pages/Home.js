@@ -37,6 +37,7 @@ const Home = () => {
     const [registerPassword, setRegisterPassword] = useState('')
     const [falseRegister, setfalseRegister] = useState(true)
     const [falseSignIn, setFalseSignIn] = useState(true)
+    const [classNum,setClassNum] = useState('')
 
     //MODAL
     const [open, setOpen] = React.useState(false);
@@ -92,6 +93,9 @@ const Home = () => {
         }
        
     }
+    const search = () => {
+        console.log(classNum)
+    }
     const stop = (event) => {
         event.preventDefault()
     }
@@ -102,7 +106,10 @@ const Home = () => {
         <div className="home-page">
             <div className='home-page-input'>
                 <h2 className='home-page-logo'><b>RateMyCSUSCourse | Computer Science</b></h2>
-                <input placeholder='Search for a class' className='home-page-search'/>
+                <form onSubmit={stop}>
+                    <input placeholder='Search for a class' className='home-page-search' onChange={(e) => setClassNum(e.target.value)}/>
+                    <button onClick={search}>Search</button>
+                </form>
             </div>
         </div>
 
