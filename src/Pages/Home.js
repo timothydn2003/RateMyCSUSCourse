@@ -37,8 +37,12 @@ const Home = () => {
     const [registerPassword, setRegisterPassword] = useState('')
     const [falseRegister, setfalseRegister] = useState(true)
     const [falseSignIn, setFalseSignIn] = useState(true)
+<<<<<<< HEAD
     const [classes, setClasses] = useState([])
     const projectsCollectionRef = collection(db, "Classes")
+=======
+    const [classNum,setClassNum] = useState('')
+>>>>>>> 1bd75d0452ba0a8632f0525b0ed216831c5c9808
 
     useEffect(() => {
         const getData = async() => {
@@ -78,6 +82,9 @@ const Home = () => {
         }
        
     }
+    const search = () => {
+        console.log(classNum)
+    }
     const stop = (event) => {
         event.preventDefault()
     }
@@ -112,7 +119,10 @@ const Home = () => {
         <div className="home-page">
             <div className='home-page-input'>
                 <h2 className='home-page-logo'><b>RateMyCSUSCourse | Computer Science</b></h2>
-                <input placeholder='Search for a class' className='home-page-search'/>
+                <form onSubmit={stop}>
+                    <input placeholder='Search for a class' className='home-page-search' onChange={(e) => setClassNum(e.target.value)}/>
+                    <button onClick={search}>Search</button>
+                </form>
             </div>
         </div>
 
