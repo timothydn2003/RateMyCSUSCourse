@@ -2,7 +2,7 @@ import { FormControl, TextField } from '@mui/material';
 import React from 'react';
 import "../App.css"
 import Navigation from '../Components/Navigation';
-import { useState,useContext } from 'react';
+import { useState,useContext, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Col, Row } from 'react-bootstrap';
@@ -13,9 +13,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AppContext } from '../App';
-import { auth } from "../firebase-config"
+import { auth, db } from "../firebase-config"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-
+import { collection, getDocs } from 'firebase/firestore'
 const style = {
     position: 'absolute',
     top: '50%',
@@ -37,30 +37,16 @@ const Home = () => {
     const [registerPassword, setRegisterPassword] = useState('')
     const [falseRegister, setfalseRegister] = useState(true)
     const [falseSignIn, setFalseSignIn] = useState(true)
+    const [classes, setClasses] = useState([])
+    const projectsCollectionRef = collection(db, "Classes")
 
-    //MODAL
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-        setOpen(false)
-        setFalseSignIn(true)
-    }
-    const [open2, setOpen2] = React.useState(false);
-    const handleOpen2 = () => setOpen2(true);
-    const handleClose2 = () => {
-        setOpen2(false)
-        setfalseRegister(true)
-    }
-
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-    const switchModal = () => {
-        handleClose()
-        handleOpen2()
-    }
-
+    useEffect(() => {
+        const getData = async() => {
+            const data = await getDocs(projectsCollectionRef)
+            setClasses(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+        }
+        getData()
+    },[])
     //AUTH
     const signIn = () => {
       signInWithEmailAndPassword(auth,email,password)
@@ -95,6 +81,30 @@ const Home = () => {
     const stop = (event) => {
         event.preventDefault()
     }
+
+    //MODAL
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false)
+        setFalseSignIn(true)
+    }
+    const [open2, setOpen2] = React.useState(false);
+    const handleOpen2 = () => setOpen2(true);
+    const handleClose2 = () => {
+        setOpen2(false)
+        setfalseRegister(true)
+    }
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+    const switchModal = () => {
+        handleClose()
+        handleOpen2()
+    }
+
 
     return(
         <div>
