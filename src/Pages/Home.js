@@ -37,12 +37,10 @@ const Home = () => {
     const [registerPassword, setRegisterPassword] = useState('')
     const [falseRegister, setfalseRegister] = useState(true)
     const [falseSignIn, setFalseSignIn] = useState(true)
-<<<<<<< HEAD
+    const [classNum,setClassNum] = useState('')
     const [classes, setClasses] = useState([])
     const projectsCollectionRef = collection(db, "Classes")
-=======
-    const [classNum,setClassNum] = useState('')
->>>>>>> 1bd75d0452ba0a8632f0525b0ed216831c5c9808
+
 
     useEffect(() => {
         const getData = async() => {
