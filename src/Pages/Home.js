@@ -1,4 +1,4 @@
-import { FormControl, TextField } from '@mui/material';
+import { Button, FormControl, TextField } from '@mui/material';
 import React from 'react';
 import "../App.css"
 import Navigation from '../Components/Navigation';
@@ -16,6 +16,7 @@ import { AppContext } from '../App';
 import { auth, db } from "../firebase-config"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore'
+import { useNavigate } from 'react-router-dom';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -29,7 +30,7 @@ const style = {
 };
 
 const Home = () => {
-    const {signedIn, setSignedIn} = useContext(AppContext)
+    const {signedIn, setSignedIn, setClassObject, classObject} = useContext(AppContext)
     const [showPassword, setShowPassword] = React.useState(false);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -39,12 +40,12 @@ const Home = () => {
     const [falseSignIn, setFalseSignIn] = useState(true)
     const [classNum,setClassNum] = useState('')
     const [classes, setClasses] = useState([])
-    const projectsCollectionRef = collection(db, "Classes")
-
+    const classesCollectionRef = collection(db, "Classes")
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getData = async() => {
-            const data = await getDocs(projectsCollectionRef)
+            const data = await getDocs(classesCollectionRef)
             setClasses(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         }
         getData()
@@ -81,7 +82,14 @@ const Home = () => {
        
     }
     const search = () => {
-        console.log(classNum)
+        classes.map((data) => {
+            if(classNum.toLowerCase() === data.id.toLowerCase()){
+                setClassObject(data)
+            }
+        })
+        console.log(classObject)
+        navigate('/classReviews')
+        
     }
     const stop = (event) => {
         event.preventDefault()
@@ -118,8 +126,8 @@ const Home = () => {
             <div className='home-page-input'>
                 <h2 className='home-page-logo'><b>RateMyCSUSCourse | Computer Science</b></h2>
                 <form onSubmit={stop}>
-                    <input placeholder='Search for a class' className='home-page-search' onChange={(e) => setClassNum(e.target.value)}/>
-                    <button onClick={search}>Search</button>
+                    <input type='text' placeholder='Search for a class' className='home-page-search' onChange={(e) => setClassNum(e.target.value)} required/>
+                    <Button type = "submit" onClick={search}>Search</Button>
                 </form>
             </div>
         </div>
