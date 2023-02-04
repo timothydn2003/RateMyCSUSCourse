@@ -8,11 +8,13 @@ import Review from './Pages/Review';
 
 export const  AppContext = createContext();
 function App() {
-  const[signedIn, setSignedIn] = useState(false)
-  const [classObject, setClassObject] = useState([]);
+  const [signedIn, setSignedIn] = useState(false)
+  const [classObject, setClassObject] = useState({});
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   return (
     <div className="App">
-      <AppContext.Provider value = {{signedIn, setSignedIn, classObject, setClassObject}}>
+      <AppContext.Provider value = {{signedIn, setSignedIn, classObject, setClassObject, setEmail, email, password, setPassword}}>
         <BrowserRouter>
           <Routes>
             <Route path = {'/'} element = {<Home/>}/>
