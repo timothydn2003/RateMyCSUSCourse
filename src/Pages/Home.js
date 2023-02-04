@@ -127,7 +127,7 @@ const Home = () => {
                 <h2 className='home-page-logo'><b>RateMyCSUSCourse | Computer Science</b></h2>
                 <form onSubmit={stop}>
                     <input type='text' placeholder='Search for a class' className='home-page-search' onChange={(e) => setClassNum(e.target.value)} required/>
-                    <Button type = "submit" onClick={search}>Search</Button>
+                    <button type = "submit" onClick={search} className = 'search-btn'>Search</button>
                 </form>
             </div>
         </div>
