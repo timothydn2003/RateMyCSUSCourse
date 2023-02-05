@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
-    const {setClassObject, classObject} = useContext(AppContext)
+    const { setClassObject } = useContext(AppContext)
     const [classNum,setClassNum] = useState('')
     const [classes, setClasses] = useState([])
     const classesCollectionRef = collection(db, "Classes")
@@ -21,7 +21,7 @@ const Home = () => {
             setClasses(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         }
         getData()
-    },[])
+    },[classesCollectionRef])
     
     const search = () => {
         classes.map((data) => {

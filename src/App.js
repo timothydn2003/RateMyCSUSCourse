@@ -12,6 +12,7 @@ function App() {
   const [classObject, setClassObject] = useState({});
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  
   return (
     <div className="App">
       <AppContext.Provider value = {{signedIn, setSignedIn, classObject, setClassObject, setEmail, email, password, setPassword}}>

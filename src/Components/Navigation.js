@@ -18,7 +18,8 @@ import { auth } from "../firebase-config"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { FormControl, TextField } from '@mui/material';
 import { AppContext } from '../App';
-
+import Fade from '@mui/material/Fade';
+import Backdrop from '@mui/material/Backdrop';
 const Navigation = () => {
     const {setSignedIn, email, setEmail, password, setPassword, setClassObject, signedIn} = useContext(AppContext)
     const [showPassword, setShowPassword] = React.useState(false);
@@ -96,7 +97,7 @@ const Navigation = () => {
       }
       //Reset class object when returning back to home page
       const reset = () => {
-        setClassObject([])
+        setClassObject({})
       }
     return(
         <div>
@@ -125,7 +126,13 @@ const Navigation = () => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
       >
+        <Fade in = {open}>
         <Box sx={style}>
           <div className='modal-content'>
             <h5 className='login-title'>Login to leave a review!</h5>
@@ -176,13 +183,19 @@ const Navigation = () => {
           </div>
          
         </Box>
+        </Fade>
         </Modal>
         <Modal
             open={open2}
             onClose={handleClose2}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
             >
+            <Fade in = {open2}>
             <Box sx={style}>
             <div className='modal-content'>
                 <h5 className='login-title'>Register your account!</h5>
@@ -233,6 +246,7 @@ const Navigation = () => {
             </div>
             
             </Box>
+            </Fade>
         </Modal>
         </div>
   );
