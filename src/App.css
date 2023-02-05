@@ -120,6 +120,15 @@ span{
   text-decoration: underline;
   font-weight: 700;
 }
+.addreview-form{
+  margin-top: 10vh;
+  border: 1px solid black;
+  width: 700px;
+  height: 450px;
+  padding: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
 @media only screen and (max-width: 991px){
   .nav-signin{
     display: block;

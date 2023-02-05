@@ -7,8 +7,9 @@ import { useState,createContext } from 'react';
 import Review from './Pages/Review';
 import AddReview from './Pages/AddReview';
 
-export const  AppContext = createContext();
+export const AppContext = createContext();
 function App() {
+  //variables needed throughout all components
   const [signedIn, setSignedIn] = useState(false)
   const [classObject, setClassObject] = useState({});
   const [email, setEmail] = useState('')
@@ -21,7 +22,7 @@ function App() {
           <Routes>
             <Route path = {'/'} element = {<Home/>}/>
             <Route path= {'/classReviews'} element = {<Review/>}/>
-            <Route path= {'/addReview'} element = {<AddReview/>}/>
+            <Route path= {'/addReview'} element = {signedIn?<AddReview/>:<Home/>}/>
           </Routes>
         </BrowserRouter>
       </AppContext.Provider>

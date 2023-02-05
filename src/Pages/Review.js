@@ -88,7 +88,7 @@ const Review = () => {
                 <div className="review-header">
                     <Row>
                         <Col>
-                            <Button onClick={() => navigate('/addReview')}>Add a Review</Button>
+                            {signedIn?<Button onClick={() => navigate('/addReview')}>Add a Review</Button>:''}
                         </Col>
                     </Row>
                     <Row>
@@ -104,7 +104,7 @@ const Review = () => {
                 </div>
                 {reviews.map((data) => {
                         return(
-                            <h1>{data.text}</h1>
+                            <h1>{data.review}</h1>
                         )
                     })}
             </Container>
