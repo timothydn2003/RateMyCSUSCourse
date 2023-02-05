@@ -5,11 +5,12 @@ import { AppContext } from '../App';
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import { db } from "../firebase-config"
 import { Col, Container, Row } from "react-bootstrap";
-import { Button, TextField } from "@mui/material";
+import { Button, LinearProgress, TextField } from "@mui/material";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import "../App.css"
+import { useNavigate } from 'react-router-dom';
 
 const Review = () => {
     const {classObject, email, signedIn} = useContext(AppContext)
@@ -17,7 +18,11 @@ const Review = () => {
     const [reviews,setReviews] = useState([])
     const [requestID, setRequestID] = useState('')
     const [requestName, setRequestName] = useState('')
+    const [loading,setLoading] = useState(false)
+    const [notFilled, setNotFilled] = useState(false)
     const requestsCollectionRef = collection(db, "Requests")
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const getReviews = async() => {
@@ -30,7 +35,10 @@ const Review = () => {
     //MODAL
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        setNotFilled(false)
+    }
 
     const style = {
         position: 'absolute',
@@ -44,24 +52,45 @@ const Review = () => {
         p: 4,
     };
     //Submitting a request
-    // const submitRequest = () => {
-    //     addDoc(reviewsCollectionRef, {requestID: requestID, email: email, requestName: requestName})
-    //     .then(() => {
-    //         alert('Request submitted!')
-    //     }).catch((error) => {
-    //         console.log(error)
-    //     })
-    // }
+    const submitRequest = () => {
+        setNotFilled(false)
+        if(signedIn === true && requestID !== '' && requestName !== ''){
+            setLoading(true)
+            addDoc(requestsCollectionRef, {requestID: requestID, email: email, requestName: requestName})
+            .then(() => {
+                setLoading(false)
+                alert('Request submitted!')
+                setRequestName('')
+                setRequestID('')
+                navigate('/')
+            }).catch((error) => {
+                console.log(error)
+            })
+        }else{
+            setNotFilled(true)
+        }
+        
+    }
     const stop = (event) => {
         event.preventDefault()
     }
     return(
         <div className="review-page">
+            {loading?
+            <Box sx={{ width: '100%', zIndex: '1300' }}>
+                <LinearProgress color = "success"/>
+            </Box>: 
+            ""}
             <Navigation/>
           {Object.keys(classObject).length>0
           ?<div className="review-body">
             <Container>
                 <div className="review-header">
+                    <Row>
+                        <Col>
+                            <Button onClick={() => navigate('/addReview')}>Add a Review</Button>
+                        </Col>
+                    </Row>
                     <Row>
                     <Col>
                         {classObject.name}
@@ -105,7 +134,12 @@ const Review = () => {
                     </Row>
                     <Row>
                         <Col>
-                            <Button onClick={submitRequest} type="submit">Submit</Button>
+                            <Button onClick={submitRequest}>Submit</Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {notFilled? <h6 style={{color: "red", marginTop: "10px"}}>*Please fill out all fields or sign in*</h6>: ""}
                         </Col>
                     </Row>
                 </form>

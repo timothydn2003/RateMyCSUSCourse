@@ -5,6 +5,7 @@ import Home from './Pages/Home';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState,createContext } from 'react';
 import Review from './Pages/Review';
+import AddReview from './Pages/AddReview';
 
 export const  AppContext = createContext();
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path = {'/'} element = {<Home/>}/>
             <Route path= {'/classReviews'} element = {<Review/>}/>
+            <Route path= {'/addReview'} element = {<AddReview/>}/>
           </Routes>
         </BrowserRouter>
       </AppContext.Provider>
