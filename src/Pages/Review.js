@@ -44,14 +44,14 @@ const Review = () => {
         p: 4,
     };
     //Submitting a request
-    const submitRequest = () => {
-        addDoc(reviewsCollectionRef, {requestID: requestID, email: email, requestName: requestName})
-        .then(() => {
-            alert('Request submitted!')
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
+    // const submitRequest = () => {
+    //     addDoc(reviewsCollectionRef, {requestID: requestID, email: email, requestName: requestName})
+    //     .then(() => {
+    //         alert('Request submitted!')
+    //     }).catch((error) => {
+    //         console.log(error)
+    //     })
+    // }
     const stop = (event) => {
         event.preventDefault()
     }
