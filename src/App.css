@@ -9,6 +9,9 @@ h3{
 span{
   color: #c4b581;
 }
+.navbar{
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
+}
 .nav-links{
   color: #0a6e38;
   transition: .2s; 
@@ -124,7 +127,6 @@ span{
   margin-top: 10vh;
   border: 1px solid black;
   width: 700px;
-  height: 450px;
   padding: 1.5rem;
   margin-left: auto;
   margin-right: auto;

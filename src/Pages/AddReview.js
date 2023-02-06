@@ -3,7 +3,7 @@ import Navigation from "../Components/Navigation"
 import { useState, useContext } from "react"
 import { AppContext } from "../App"
 import { Col, Container, Row } from "react-bootstrap"
-import { Button, LinearProgress, TextField } from "@mui/material"
+import { Alert, Button, LinearProgress, TextField } from "@mui/material"
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,6 +12,7 @@ import Select from '@mui/material/Select';
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from "../firebase-config"
 import { useNavigate } from "react-router-dom"
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const AddReview = () => {
     //Information for Review Submission
@@ -22,10 +23,11 @@ const AddReview = () => {
     const [semester, setSemester] = useState('')
     const [rating, setRating] = useState('')
     const current = new Date();
-    const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+    const date = `${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()}`;
     //Loading animation trigger
     const [loading, setLoading] = useState(false)
     const [filled, setFilled] = useState(true)
+    const [alert1, setAlert1] = useState(false)
     //Reference for databse
     const reviewsCollectionRef = collection(db, "Classes", `${classObject.id}`,"Reviews")
     
@@ -47,8 +49,8 @@ const AddReview = () => {
             addDoc(reviewsCollectionRef, {review: review, email: email, position: position, professor: professor, semester: semester, date: date, likes: 0})
             .then(() => {
                 setLoading(false)
-                alert('Review Added')
-                navigate('/')
+                setAlert1(true)
+                
             }).catch((error) => {
                 console.log(error)
             })
@@ -56,19 +58,28 @@ const AddReview = () => {
             setFilled(false)
         }
     }
+    const close = () => {
+        setAlert1(false)
+        navigate('/')
+    }
     const stop = (event) => {
         event.preventDefault()
     }
     return(
         <div className="addreview-page">
+            
             {loading?
             <Box sx={{ width: '100%', zIndex: '1300' }}>
                 <LinearProgress color = "success"/>
             </Box>: 
             ""}
             <Navigation/>
-            <div className="addreview-body">
-                <div className="addreview-form">
+            <div className="addreview-body" >
+                {alert1?<Alert severity="success">
+                    Review successfully added! <p style={{display: "inline"}}><button style={{ backgroundColor: "transparent", border: "none", color: "green"}} onClick={close}><HighlightOffIcon style={{width: '20px'}}/></button></p>
+                </Alert>:""}
+                
+                <div className="addreview-form" style={filled? {height:'400px'}: {height: "450px" }}>
                     <form onSubmit={stop}>
                         <h6>Add a review for: {classObject.name}</h6>
                         <Container style={{width: '600px'}}>
@@ -133,7 +144,10 @@ const AddReview = () => {
                             </Row>
                             <Row>
                                 <Col>
-                                    {filled?"":<h6 style={{ color: 'red', marginTop: '10px' }}>*Please fill in all fields*</h6>}
+                                {filled?"":
+                                    <Alert severity="error">
+                                        Please fill in all fields!
+                                    </Alert>}
                                 </Col>
                             </Row>
                         </Container>
