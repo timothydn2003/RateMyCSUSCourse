@@ -46,7 +46,7 @@ const AddReview = () => {
         setFilled(true)
         if(professor !== '' && semester !== '' && review !== false && rating !== ''){
             setLoading(true)
-            addDoc(reviewsCollectionRef, {review: review, email: email, position: position, professor: professor, semester: semester, date: date, likes: 0})
+            addDoc(reviewsCollectionRef, {review: review, email: email, position: position, professor: professor, semester: semester, date: date, likes: 0, rating: rating})
             .then(() => {
                 setLoading(false)
                 setAlert1(true)

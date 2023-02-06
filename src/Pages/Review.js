@@ -87,14 +87,14 @@ const Review = () => {
             <Container>
                 <div className="review-header">
                     <Row>
-                        <Col>
-                            {signedIn?<Button onClick={() => navigate('/addReview')}>Add a Review</Button>:<h6>Sign in to leave a review!</h6>}
+                        <Col style={{disply:'flex', justifyContent:'end', width: '100%'}}>
+                            {signedIn?<button onClick={() => navigate('/addReview')} className = 'addReview-btn' >Add a Review</button>:<h6>Sign in to leave a review!</h6>}
                         </Col>
                     </Row>
                     <Row>
-                    <Col>
-                        {classObject.name}
-                    </Col>
+                        <Col>
+                            {classObject.name}
+                        </Col>
                     </Row>
                     <Row>
                         <Col>
@@ -104,7 +104,32 @@ const Review = () => {
                 </div>
                 {reviews.map((data) => {
                         return(
-                            <h1>{data.review}</h1>
+                           <div className="review-card">
+                                <Row>
+                                    <Col md='4'>
+                                        <div className="rating-card">
+                                            <h4>Rating:</h4>
+                                            <h5>{data.rating}</h5></div>
+                                    </Col>
+                                    <Col md="8">
+                                        <Row>
+                                            <Col>
+                                                {data.date}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col>
+                                                {data.position}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col>
+                                            Semester taken: {data.semester}
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                           </div>
                         )
                     })}
             </Container>
