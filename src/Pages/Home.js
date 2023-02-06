@@ -24,6 +24,7 @@ const Home = () => {
     },[classesCollectionRef])
     
     const search = () => {
+        setClassObject({})
         classes.map((data) => {
             if(classNum.toLowerCase() === data.id.toLowerCase()){
                 setClassObject(data)

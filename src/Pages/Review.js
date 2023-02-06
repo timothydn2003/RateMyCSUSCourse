@@ -88,7 +88,7 @@ const Review = () => {
                 <div className="review-header">
                     <Row>
                         <Col>
-                            {signedIn?<Button onClick={() => navigate('/addReview')}>Add a Review</Button>:''}
+                            {signedIn?<Button onClick={() => navigate('/addReview')}>Add a Review</Button>:<h6>Sign in to leave a review!</h6>}
                         </Col>
                     </Row>
                     <Row>
