@@ -114,8 +114,6 @@ span{
 }
 .review-header{
   width: 500px;
-  margin-left: auto;
-  margin-right: auto;
   text-align: left;
 }
 .request-btn{
@@ -140,14 +138,20 @@ span{
   border-radius: 10px;
   margin-bottom: 5vh;
 }
+.back-btn{
+  background-color: #0a6e38;
+  color: white;
+  padding: .6rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 5vh;
+}
 .review-card{
-  width: 550px;
+  width: auto;
   border: 1px solid grey;
   border-radius: 20px;
   margin-bottom: 5vh;
-  margin-right: auto;
-  margin-left: auto;
-  justify-content: start;
+  justify-content: flex-end;
   text-align: left;
   padding: .5rem;
 }
@@ -206,4 +210,7 @@ span{
     color: #c4b581;
     transition: .4s;
   }
+}
+@media only screen and (max-width: 768px){
+  
 }
