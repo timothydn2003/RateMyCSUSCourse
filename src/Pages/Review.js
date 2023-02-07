@@ -85,53 +85,69 @@ const Review = () => {
           {Object.keys(classObject).length>0
           ?<div className="review-body">
             <Container>
-                <div className="review-header">
-                    <Row>
-                        <Col style={{disply:'flex', justifyContent:'end', width: '100%'}}>
-                            {signedIn?<button onClick={() => navigate('/addReview')} className = 'addReview-btn' >Add a Review</button>:<h6>Sign in to leave a review!</h6>}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            {classObject.name}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                           <p>{classObject.description}</p>
-                        </Col>
-                    </Row>
-                </div>
+                <Row>
+                   {signedIn?
+                   <Col style={{justifyContent: "end", display: "flex"}}>
+                       <button onClick={() => navigate('/addReview')} style = {{marginRight: "2vh"}} className = 'addReview-btn' >Add a Review</button>
+                       <button className = 'addReview-btn'>Upload a file</button>
+                    </Col>
+                    :<h6 style={{marginBottom: "5vh", justifyContent: "end", display: "flex" }}>Sign in to leave a review!</h6>}
+                </Row>
+                <Row>
+                <Col md = '6' xs = '12'>
+                    <div className="review-header">
+                        <Row>
+                            <Col>
+                                <h5>{classObject.name}</h5>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                            <p className="course-description">{classObject.description}</p>
+                            </Col>
+                        </Row>
+                    </div>
+                </Col>
+                <Col md= '6' xs = '12'>
                 {reviews.map((data) => {
                         return(
                            <div className="review-card">
-                                <Row>
-                                    <Col md='4'>
-                                        <div className="rating-card">
-                                            <h4>Rating:</h4>
-                                            <h5>{data.rating}</h5></div>
-                                    </Col>
-                                    <Col md="8">
-                                        <Row>
-                                            <Col>
-                                                {data.date}
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col>
-                                                {data.position}
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col>
-                                            Semester taken: {data.semester}
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                </Row>
+                                <div className="review-data">
+                                    <Row>
+                                        <Col md='3'>
+                                            <div className="rating-card">
+                                                <h4>Rating:</h4>
+                                                <h5>{data.rating}</h5></div>
+                                        </Col>
+                                        <Col md="9">
+                                            <Row>
+                                                <Col>
+                                                    {data.date}
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col>
+                                                    {data.position}
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col>
+                                                Semester taken: {data.semester}
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col>
+                                                    <p className="review-paragraph" >{data.review}</p>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                </div>
                            </div>
                         )
                     })}
+                </Col>
+                </Row>
             </Container>
           </div>
           :<h6>Class not found. Request to have a class added<button onClick={handleOpen} className="request-btn">here.</button></h6>}
