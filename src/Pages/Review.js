@@ -40,7 +40,6 @@ const Review = () => {
         setSuccesss(false)
         setOpen(false);
         setNotFilled(false)
-        navigate('/')
     }
 
     const style = {
@@ -73,6 +72,10 @@ const Review = () => {
             setNotFilled(true)
         }
         
+    }
+    const closeModal = () => {
+        handleClose()
+        navigate('/')
     }
     const stop = (event) => {
         event.preventDefault()
@@ -183,7 +186,7 @@ const Review = () => {
                             <div>
                                 <Alert severity="success" style={{ width: '30ch', margin: '10px auto 0 auto'}}>Request Submitted!
                                     <p style={{display: "inline"}}>
-                                        <button onClick={handleClose} style={{ backgroundColor: "transparent", border: "none", color: "green"}} ><HighlightOffIcon style={{width: '20px'}}/></button>
+                                        <button onClick={closeModal} style={{ backgroundColor: "transparent", border: "none", color: "green"}} ><HighlightOffIcon style={{width: '20px'}}/></button>
                                     </p>
                                 </Alert>
                             </div>
