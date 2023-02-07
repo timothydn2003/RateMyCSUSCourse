@@ -84,12 +84,12 @@ const AddReview = () => {
                         <h6>Add a review for: {classObject.name}</h6>
                         <Container style={{width: '600px'}}>
                             <Row>
-                                <Col>
-                                    <TextField sx={{width: '25ch'}} id="outlined-basic" label="Professor" variant="outlined" onChange={(e) => setProfessor(e.target.value)} required/>
+                                <Col md = '6'>
+                                    <TextField sx={{width: '100%' }} id="outlined-basic" label="Professor" variant="outlined" onChange={(e) => setProfessor(e.target.value)} required/>
                                 </Col>
                                 <Col>
                                     <Box>
-                                        <FormControl sx={{width: '25ch'}}>
+                                        <FormControl sx={{width: '100%'}}>
                                             <InputLabel id="demo-simple-select-label">Difficulty Rating</InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
@@ -112,7 +112,7 @@ const AddReview = () => {
                             <Row>
                                 <Col>
                                     <Box>
-                                        <FormControl sx={{width: '25ch', marginTop: '20px'}}>
+                                        <FormControl sx={{width: '100%', marginTop: '20px'}}>
                                             <InputLabel id="demo-simple-select-label">Current student, alumni or professor?</InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
@@ -129,12 +129,12 @@ const AddReview = () => {
                                     </Box>
                                 </Col>
                                 <Col>
-                                    <TextField sx={{width: '25ch', marginTop: '20px'}} id="outlined-basic" label="Semester taken" variant="outlined" onChange={(e) => setSemester(e.target.value)} required/>
+                                    <TextField sx={{width: '100%', marginTop: '20px'}} id="outlined-basic" label="Semester taken" variant="outlined" onChange={(e) => setSemester(e.target.value)} required/>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
-                                    <TextField id="outlined-basic" label="Description" variant="outlined" multiline rows={4}maxRows={8} style = {{width: '55ch', marginTop: '20px'}} onChange={(e) => setReview(e.target.value)} required/>
+                                    <TextField id="outlined-basic" label="Description" variant="outlined" multiline rows={4}maxRows={8} style = {{width: '100%', marginTop: '20px'}} onChange={(e) => setReview(e.target.value)} required/>
                                 </Col>
                             </Row>
                             <Row>
