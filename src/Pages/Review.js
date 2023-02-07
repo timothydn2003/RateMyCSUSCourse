@@ -5,10 +5,10 @@ import { AppContext } from '../App';
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import { db } from "../firebase-config"
 import { Col, Container, Row } from "react-bootstrap";
-import { Button, LinearProgress, TextField } from "@mui/material";
+import { Alert, Button, CircularProgress, TextField } from "@mui/material";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import "../App.css"
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +19,7 @@ const Review = () => {
     const [requestID, setRequestID] = useState('')
     const [requestName, setRequestName] = useState('')
     const [loading,setLoading] = useState(false)
+    const [success, setSuccesss] = useState(false)
     const [notFilled, setNotFilled] = useState(false)
     const requestsCollectionRef = collection(db, "Requests")
     const navigate = useNavigate();
@@ -36,8 +37,10 @@ const Review = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
+        setSuccesss(false)
         setOpen(false);
         setNotFilled(false)
+        navigate('/')
     }
 
     const style = {
@@ -59,10 +62,10 @@ const Review = () => {
             addDoc(requestsCollectionRef, {requestID: requestID, email: email, requestName: requestName})
             .then(() => {
                 setLoading(false)
-                alert('Request submitted!')
+
+                setSuccesss(true)
                 setRequestName('')
                 setRequestID('')
-                navigate('/')
             }).catch((error) => {
                 console.log(error)
             })
@@ -76,11 +79,6 @@ const Review = () => {
     }
     return(
         <div className="review-page">
-            {loading?
-            <Box sx={{ width: '100%', zIndex: '1300' }}>
-                <LinearProgress color = "success"/>
-            </Box>: 
-            ""}
             <Navigation/>
           {Object.keys(classObject).length>0
           ?<div className="review-body">
@@ -173,14 +171,32 @@ const Review = () => {
                             <TextField sx={{ m: 1, width: '25ch' }} id="outlined-basic" label="Course Name" variant="outlined" onChange = {(e) => setRequestName(e.target.value)} required/>
                         </Col>
                     </Row>
+                    {success?<Row>
+                        <Col>
+                            <div>
+                                <Alert severity="success" style={{ width: '30ch', margin: '10px auto 0 auto'}}>Request Submitted!
+                                    <p style={{display: "inline"}}>
+                                        <button onClick={handleClose} style={{ backgroundColor: "transparent", border: "none", color: "green"}} ><HighlightOffIcon style={{width: '20px'}}/></button>
+                                    </p>
+                                </Alert>
+                            </div>
+                        </Col>
+                    </Row>:""}
+                    {loading?
                     <Row>
                         <Col>
-                            <Button onClick={submitRequest}>Submit</Button>
+                            <CircularProgress color="success" style={{marginTop: '10px'}}/>
+                        </Col>
+                    </Row>
+                    :""}
+                    <Row>
+                        <Col>
+                            {notFilled? <h6 style={{color: "red", marginTop: "10px"}}>*Please fill out all fields or sign in*</h6>: ""}
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            {notFilled? <h6 style={{color: "red", marginTop: "10px"}}>*Please fill out all fields or sign in*</h6>: ""}
+                            <Button onClick={submitRequest}>Submit</Button>
                         </Col>
                     </Row>
                 </form>

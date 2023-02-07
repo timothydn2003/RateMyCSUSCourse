@@ -16,10 +16,13 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { auth } from "../firebase-config"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { FormControl, TextField } from '@mui/material';
+import { Alert, CircularProgress, FormControl, TextField } from '@mui/material';
 import { AppContext } from '../App';
 import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
+import { useNavigate } from "react-router-dom"
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
 const Navigation = () => {
     const {setSignedIn, email, setEmail, password, setPassword, setClassObject, signedIn} = useContext(AppContext)
     const [showPassword, setShowPassword] = React.useState(false);
@@ -49,9 +52,12 @@ const Navigation = () => {
     const [open2, setOpen2] = React.useState(false);
     const handleOpen2 = () => setOpen2(true);
     const handleClose2 = () => {
+        setSuccess(false)
         setOpen2(false)
         setfalseRegister(true)
     }
+    const [loading, setLoading] = useState(false)
+    const [success,setSuccess] = useState(false)
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
@@ -83,18 +89,20 @@ const Navigation = () => {
       }
       const register = () => {
           if(registerEmail.includes('@csus.edu')){
-              createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-              .then(() => {
-                 alert('Registered!')
-                 setfalseRegister(true)
-                 handleClose2()
-              }).catch((error) => {
-                  console.log(error.message)
-              })
+                setLoading(true)
+                createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+                .then(() => {
+                    setfalseRegister(true)
+                    setLoading(false)
+                    setSuccess(true)
+                }).catch((error) => {
+                    alert('Email already in use.')
+                })
           }else{
               setfalseRegister(false)
           }
       }
+
       //Reset class object when returning back to home page
       const reset = () => {
         setClassObject({})
@@ -139,7 +147,7 @@ const Navigation = () => {
             <form className='login-form' onSubmit={stop}>
                 <Row>
                     <Col>
-                        <TextField  sx={{ m: 1, width: '25ch' }} id="outlined-basic" label="Email" variant="outlined" onChange={(e) => setEmail(e.target.value)} required/>
+                        <TextField  sx={{ m: 1, width: '25ch' }} id="outlined-basic" label="Email" variant="outlined" onChange={(e) => setEmail(e.target.value)}/>
                     </Col>
                 </Row>
                 <Row>
@@ -163,7 +171,7 @@ const Navigation = () => {
                                     </InputAdornment>
                                 }
                                 label="Password"
-                                required
+
                             />
                         </FormControl>
                     </Col>
@@ -231,6 +239,25 @@ const Navigation = () => {
                             </FormControl>
                         </Col>
                     </Row>
+                    {success?<Row>
+                        <Col>
+                            <div>
+                                <Alert severity="success" style={{ width: '30ch', margin: '10px auto 0 auto'}}>Registered!
+                                    <p style={{display: "inline"}}>
+                                        <button onClick={handleClose2} style={{ backgroundColor: "transparent", border: "none", color: "green"}} ><HighlightOffIcon style={{width: '20px'}}/></button>
+                                    </p>
+                                </Alert>
+                            </div>
+                        </Col>
+                    </Row>:""}
+                    {loading?
+                    <Row>
+                        <Col>
+                            <CircularProgress color="success" style={{marginTop: '10px'}}/>
+                        </Col>
+                    </Row>
+                    : ""}
+
                     <Row>
                         <Col>
                             {falseRegister?"":<h6 style={{color: 'red', paddingTop: '20px'}}>*Please use a CSUS email!*</h6>}
