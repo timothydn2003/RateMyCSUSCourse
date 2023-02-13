@@ -35,14 +35,14 @@ span{
   background-color: transparent;
 }
 .signup-btn{
-  background-color: #c4b581;
+  background-color: transparent;
   color: rgb(0, 87, 61);
   border-radius: 30px;
   border: none;
   transition: .2s;
 }
 .signup-btn:hover{
-  background-color: #B5A778;
+  color: #c4b581;
   transition: .4s;
 }
 .signup-modal-btn{
