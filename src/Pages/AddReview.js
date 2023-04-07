@@ -85,7 +85,7 @@ const AddReview = () => {
                         <Container style={{width: '600px'}}>
                             <Row>
                                 <Col md = '6'>
-                                    <TextField sx={{width: '100%' }} id="outlined-basic" label="Professor" variant="outlined" onChange={(e) => setProfessor(e.target.value)} required/>
+                                    <TextField sx={{width: '100%' }} id="outlined-basic" label="Professor - last name only" variant="outlined" onChange={(e) => setProfessor(e.target.value)} required/>
                                 </Col>
                                 <Col>
                                     <Box>

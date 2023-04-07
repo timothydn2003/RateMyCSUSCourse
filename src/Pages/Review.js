@@ -132,12 +132,17 @@ const Review = () => {
                                                 </Row>
                                                 <Row>
                                                     <Col>
-                                                        {data.position}
+                                                        Professor {data.professor}
                                                     </Col>
                                                 </Row>
                                                 <Row>
                                                     <Col>
                                                     Semester taken: {data.semester}
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col>
+                                                        {data.position}
                                                     </Col>
                                                 </Row>
                                                 <Row>
